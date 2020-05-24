@@ -13,10 +13,9 @@ defmodule ImageUploaderDemoWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ImageUploaderDemoWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
+  scope "/api", ImageUploaderDemoWeb do
+    pipe_through :api
+    post "/upload", ImageController, :create
   end
 
   # Other scopes may use custom stacks.
