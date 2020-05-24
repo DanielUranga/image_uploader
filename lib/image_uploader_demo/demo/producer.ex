@@ -1,4 +1,9 @@
+defmodule ImageUploaderDemo.Demo.ProducerBehaviour do
+  @callback add(any, atom | pid | {atom, any} | {:via, atom, any}) :: :ok
+end
+
 defmodule ImageUploaderDemo.Demo.Producer do
+  @behaviour ImageUploaderDemo.Demo.ProducerBehaviour
   use GenStage
 
   def start_link() do
@@ -12,7 +17,7 @@ defmodule ImageUploaderDemo.Demo.Producer do
   def handle_info(_, state), do: {:noreply, [], state}
 
   # public endpoint for events adding
-  def add(events), do: GenServer.cast(__MODULE__, {:add, events})
+  def add(events, name), do: GenServer.cast(name, {:add, events})
 
   # just push events to consumers on adding
   def handle_cast({:add, events}, state) when is_list(events) do

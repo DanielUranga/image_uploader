@@ -6,5 +6,7 @@ config :image_uploader_demo, ImageUploaderDemoWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :image_uploader_demo, :producer, ImageUploaderDemo.Demo.ProducerMock
+
 # Print only warnings and errors during test
 config :logger, level: :warn

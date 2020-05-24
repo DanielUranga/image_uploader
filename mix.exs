@@ -34,6 +34,7 @@ defmodule ImageUploaderDemo.MixProject do
   defp deps do
     [
       {:gen_stage, "~> 1.0.0"},
+      {:mox, "~> 0.5", only: :test},
       {:phoenix, "~> 1.5.3"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
