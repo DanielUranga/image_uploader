@@ -17,6 +17,9 @@ defmodule ImageUploaderDemo.Application do
       # {ImageUploaderDemo.Worker, arg}
     ]
 
+    ImageUploaderDemo.Demo.Producer.start_link()
+    ImageUploaderDemo.Demo.Consumer.start_link()
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: ImageUploaderDemo.Supervisor]

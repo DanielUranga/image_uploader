@@ -4,11 +4,13 @@ defmodule ImageUploaderDemoWeb.ImageControllerTest do
   alias ImageUploaderDemo.Demo
 
   describe "create image" do
-    test "can upload an image", %{conn: conn} do
+    test "returns 'created' on image upload", %{conn: conn} do
       upload = %Plug.Upload{path: "test/data/test.jpg", filename: "test.jpg"}
-      conn = conn |> post("/api/upload", %{ :image => upload })
+      conn = conn |> post("/api/upload", %{:image => upload})
       assert json_response(conn, 201)
     end
-  end
 
+    test "calls ImageUploaderDemo.Demo.Producer.add/1", %{conn: conn} do
+    end
+  end
 end
