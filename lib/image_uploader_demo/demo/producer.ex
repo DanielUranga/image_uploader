@@ -12,7 +12,7 @@ defmodule ImageUploaderDemo.Demo.Producer do
   end
 
   def init(_opts) do
-    {:producer, :unused, buffer_size: 1}
+    {:producer, :unused, buffer_size: 10_000}
   end
 
   # public endpoint for events adding

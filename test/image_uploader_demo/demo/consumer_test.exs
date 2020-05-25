@@ -26,4 +26,27 @@ defmodule ImageUploaderDemo.Demo.ConsumerTest do
 
     GenStage.stop(producer_pid)
   end
+
+  test "receives and processes a thousand messages" do
+    sent = for n <- 1..1_000, do: n
+    parent = self()
+    ref = make_ref()
+
+    ImageUploaderDemo.Demo.S3Mock
+    |> expect(:upload, length(sent), fn data ->
+      if data == length(sent) do
+        send(parent, {:upload, ref})
+      end
+    end)
+
+    {:ok, producer_pid} = Producer.start_link(name: :test_upload_fifo)
+    {:ok, consumer_pid} = Consumer.start_link(subscribe_to: [{:test_upload_fifo, []}])
+    ImageUploaderDemo.Demo.S3Mock |> allow(parent, consumer_pid)
+
+    sent |> Enum.each(&(Producer.add(:test_upload_fifo, &1)))
+
+    assert_receive({:upload, ^ref}, 1000)
+
+    GenStage.stop(producer_pid)
+  end
 end
