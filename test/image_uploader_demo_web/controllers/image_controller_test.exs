@@ -8,8 +8,8 @@ defmodule ImageUploaderDemoWeb.ImageControllerTest do
   describe "create image" do
     test "returns 'created' on image upload", %{conn: conn} do
       ImageUploaderDemo.Demo.ProducerMock
-      |> expect(:add, fn (_image_data, module) ->
-        assert(module == Application.get_env(:image_uploader_demo, :producer))
+      |> expect(:add, fn (module, _image_data) ->
+        assert(module == Application.get_env(:image_uploader_demo, :producer_name))
       end)
 
       upload = %Plug.Upload{path: "test/data/test.jpg", filename: "test.jpg"}

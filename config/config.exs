@@ -15,6 +15,8 @@ config :image_uploader_demo, ImageUploaderDemoWeb.Endpoint,
   pubsub_server: ImageUploaderDemo.PubSub,
   live_view: [signing_salt: "xjhZY5ax"]
 
+config :image_uploader_demo, :producer_name, Producer
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

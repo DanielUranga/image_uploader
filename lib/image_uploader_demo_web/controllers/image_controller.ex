@@ -8,7 +8,9 @@ defmodule ImageUploaderDemoWeb.ImageController do
     producer_module =
       Application.get_env(:image_uploader_demo, :producer, ImageUploaderDemo.Demo.Producer)
 
-    producer_module.add(image_bytes, producer_module)
+    producer_name = Application.get_env(:image_uploader_demo, :producer_name)
+
+    producer_module.add(producer_name, image_bytes)
 
     conn
     |> put_status(:created)

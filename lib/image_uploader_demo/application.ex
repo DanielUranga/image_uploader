@@ -6,19 +6,20 @@ defmodule ImageUploaderDemo.Application do
   use Application
 
   def start(_type, _args) do
+    producer_name = Application.get_env(:image_uploader_demo, :producer_name)
+
     children = [
       # Start the Telemetry supervisor
       ImageUploaderDemoWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: ImageUploaderDemo.PubSub},
       # Start the Endpoint (http/https)
-      ImageUploaderDemoWeb.Endpoint
+      ImageUploaderDemoWeb.Endpoint,
       # Start a worker by calling: ImageUploaderDemo.Worker.start_link(arg)
-      # {ImageUploaderDemo.Worker, arg}
+      # {ImageUploaderDemo.Worker, arg},
+      {ImageUploaderDemo.Demo.Producer, name: producer_name},
+      {ImageUploaderDemo.Demo.Consumer, subscribe_to: [{producer_name, []}]}
     ]
-
-    ImageUploaderDemo.Demo.Producer.start_link()
-    ImageUploaderDemo.Demo.Consumer.start_link()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
