@@ -13,11 +13,11 @@ defmodule ImageUploaderDemo.Demo.Consumer do
   def handle_info(_, state), do: {:noreply, [], state}
 
   def handle_events(events, _from, state) when is_list(events) and length(events) > 0 do
-    # events handling here
+    s3_module = Application.get_env(:image_uploader_demo, :s3_module)
 
     events
     |> Enum.each(fn data ->
-      ImageUploaderDemo.Demo.S3.upload(data)
+      s3_module.upload(data)
     end)
 
     {:noreply, [], state}

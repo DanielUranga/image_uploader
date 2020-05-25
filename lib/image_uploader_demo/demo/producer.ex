@@ -16,7 +16,7 @@ defmodule ImageUploaderDemo.Demo.Producer do
   end
 
   # public endpoint for events adding
-  def add(name, events), do: GenStage.cast(name, {:add, events})
+  def add(name, event), do: GenStage.cast(name, {:add, event})
 
   def handle_cast({:add, event}, state), do: {:noreply, [event], state}
 

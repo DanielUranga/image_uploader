@@ -15,7 +15,9 @@ config :image_uploader_demo, ImageUploaderDemoWeb.Endpoint,
   pubsub_server: ImageUploaderDemo.PubSub,
   live_view: [signing_salt: "xjhZY5ax"]
 
-config :image_uploader_demo, :producer_name, Producer
+config :image_uploader_demo,
+  producer_name: Producer,
+  s3_module: ImageUploaderDemo.Demo.S3
 
 # Configures Elixir's Logger
 config :logger, :console,
