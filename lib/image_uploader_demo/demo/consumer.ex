@@ -5,7 +5,6 @@ defmodule ImageUploaderDemo.Demo.Consumer do
   def start_link(opts), do: GenStage.start_link(__MODULE__, opts)
 
   def init(opts) do
-    IO.puts(inspect(opts))
     subscribe_to = Keyword.get(opts, :subscribe_to, ImageUploaderDemo.Demo.Producer)
 
     {:consumer, :unused, subscribe_to: subscribe_to}

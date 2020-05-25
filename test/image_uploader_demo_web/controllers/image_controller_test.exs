@@ -1,12 +1,11 @@
 defmodule ImageUploaderDemoWeb.ImageControllerTest do
   import Mox
   use ImageUploaderDemoWeb.ConnCase
-  alias ImageUploaderDemo.Demo
 
   setup :verify_on_exit!
 
   describe "create image" do
-    test "returns 'created' on image upload", %{conn: conn} do
+    test "returns 'created' and calls Producer.add/2 on image upload", %{conn: conn} do
       ImageUploaderDemo.Demo.ProducerMock
       |> expect(:add, fn (module, _image_data) ->
         assert(module == Application.get_env(:image_uploader_demo, :producer_name))
